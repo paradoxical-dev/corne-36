@@ -9,16 +9,99 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
-        // UNDERGLOW
-        chosen {
-                zmk,underglow = &led_strip;
-        };
+  // UNDERGLOW
+  chosen {
+    zmk,underglow = &led_strip;
+  };
 
-        keymap {
-                compatible = "zmk,keymap";
+  behaviors {
+    sl_tog: shift_layer_toggle {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "hold-preferred";
+      tapping-term-ms = <200>;
+      bindings = <&kp>, <&to>;
+    };
 
-                default_layer {
+    // F key functions
+    f1: sleep_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F1>, <&kp C_SLEEP>;
+      mods = <(MOD_RALT)>;
+    };
+    f2: lock_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F2>, <&kp C_AL_LOCK>;
+      mods = <(MOD_RALT)>;
+    };
+    f3: logoff_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F3>, <&kp C_AL_LOGOFF>;
+      mods = <(MOD_RALT)>;
+    };
+    f4: pause_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F4>, <&kp C_PAUSE>;
+      mods = <(MOD_RALT)>;
+    };
+    f5: play_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F5>, <&kp C_PLAY>;
+      mods = <(MOD_RALT)>;
+    };
+    f6: next_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F6>, <&kp C_NEXT>;
+      mods = <(MOD_RALT)>;
+    };
+    f7: prev_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F7>, <&kp C_PREV>;
+      mods = <(MOD_RALT)>;
+    };
+    f8: mute_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F8>, <&kp C_MUTE>;
+      mods = <(MOD_RALT)>;
+    };
+    f9: volume_dwn_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F9>, <&kp C_VOL_DN>;
+      mods = <(MOD_RALT)>;
+    };
+    f10: volume_up_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F10>, <&kp C_VOL_UP>;
+      mods = <(MOD_RALT)>;
+    };
+    f11: brightness_dwn_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F11>, <&kp C_BRIGHTNESS_DEC>;
+      mods = <(MOD_RALT)>;
+    };
+    f12: brightness_up_function {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp F12>, <&kp C_BRIGHTNESS_INC>;
+      mods = <(MOD_RALT)>;
+    };
+  };
 
+  keymap {
+    compatible = "zmk,keymap";
+
+    default_layer {
       // -------------------------------------------------------------------
       // |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  |
       // |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |
@@ -28,37 +111,49 @@
         &trans &kp Q &kp W &kp E    &kp R &kp T          &kp Y   &kp U   &kp I     &kp O   &kp P    &trans    
         &trans &kp A &kp S &kp D    &kp F &kp G          &kp H   &kp J   &kp K     &kp L   &kp SEMI &trans
         &trans &kp Z &kp X &kp C    &kp V &kp B          &kp N   &kp M   &kp COMMA &kp DOT &kp FSLH &trans
-                           &kp LGUI &mo 1 &kp SPACE      &kp RET &mo 2   &sk RALT
+                           &kp LGUI &mo 1 &kp SPACE      &kp RET &mo 2   &sl_tog RSHFT 3
       >;
-                };
-                lower_layer {
-
+    };
+    lower_layer {
       // ------------------------------------------------------------------
       // |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  |
       // | BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT | CLCK |
       // | BTC |     |     |     | ESC |   |     |     |     |     |     |
       //             | ALT |     | SPC |   | TAB |     | GUI |
       bindings = <
-       &trans &kp N1       &kp N2       &kp N3       &kp N4       &kp N5            &kp N6   &kp N7   &kp N8 &kp N9    &kp N0   &trans
-       &trans &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4      &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp CLCK &trans
-       &trans &bt BT_CLR   &trans       &trans       &trans       &kp ESC           &trans   &trans   &trans &trans    &trans   &trans
-                                        &kp LALT     &trans       &kp SPACE         &kp TAB  &trans   &kp RGUI
+        &trans &kp N1       &kp N2       &kp N3       &kp N4       &kp N5            &kp N6   &kp N7   &kp N8 &kp N9    &kp N0   &trans
+        &trans &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4      &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp CLCK &trans
+        &trans &bt BT_CLR   &trans       &trans       &trans       &kp ESC           &trans   &trans   &trans &trans    &trans   &trans
+                                         &kp LALT     &trans       &kp SPACE         &kp TAB  &trans   &kp RGUI
       >;
-                };
+    };
 
-                raise_layer {
-
+    raise_layer {
       // ------------------------------------------------------------------
       // |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  |
       // |  -  |  =  |  [  |  ]  |  \  |   |  '  |  "  |  `  |  ~  |  :  |
       // |  _  |  +  |  {  |   } |  |  |   |  <  |  >  |  ?  |     |     |
       //             | CTR |     | BKS |   | SPC |     | ALT |
       bindings = <
-       &trans &kp EXCL  &kp AT    &kp HASH  &kp DLLR &kp PRCNT        &kp CARET  &kp AMPS &kp ASTRK &kp LPAR  &kp RPAR   &trans
-       &trans &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH         &kp SQT    &kp DQT  &kp GRAVE &kp TILDE &kp COLON  &trans
-       &trans &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE         &kp LT     &kp GT   &kp QMARK &trans    &trans     &trans
-                                  &sk LCTRL &trans   &kp BSPC         &kp SPACE  &trans   &kp RALT
+        &trans &kp EXCL  &kp AT    &kp HASH  &kp DLLR &kp PRCNT        &kp CARET  &kp AMPS &kp ASTRK &kp LPAR  &kp RPAR   &trans
+        &trans &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH         &kp SQT    &kp DQT  &kp GRAVE &kp TILDE &kp COLON  &trans
+        &trans &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE         &kp LT     &kp GT   &kp QMARK &trans    &trans     &trans
+                                   &sk LCTRL &trans   &kp BSPC         &kp SPACE  &trans   &kp RALT
       >;
-                };
-        };
+    };
+
+    system_layer {
+      // ------------------------------------------------------------------------------
+      // |  F1  |  F2  |  F3  |  F4  |  F5  |   |  F6   |  F7  |  F8  |  F9  |  F10  |
+      // |  F11 |      |      |      |      |   |       |      |      |      |  F12  |
+      // |      |      |      |      |      |   |       |      |      |      |       |
+      //               |      |      |      |   |       | DFLT |      |
+      bindings = <
+        &f1      &f2     &f3     &f4     &f5         &f7     &f7     &f8     &f9     &f10 
+        &f11     &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &f12
+        &trans   &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans 
+                         &trans  &trans  &trans      &trans  &to 0   &kp RALT
+      >;
+    };
+  };
 };
