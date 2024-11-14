@@ -152,7 +152,7 @@
         &f1      &f2     &f3     &f4     &f5         &f7     &f7     &f8     &f9     &f10 
         &f11     &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &f12
         &trans   &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans 
-                         &trans  &trans  &trans      &trans  &to 0   &kp RALT
+                         &to 0   &trans  &trans      &trans  &trans   &kp RALT
       >;
     };
   };
